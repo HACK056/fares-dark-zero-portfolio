@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Love Engine | Dark Zero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --text-light: #e0e0e0;
+            --text-muted: #888888;
+            --neon-accent: #00ffc4;
+            --neon-shadow: 0 0 10px rgba(0, 255, 196, 0.6);
+            --border-color: #004d3c;
+            --card-bg: rgba(10, 10, 10, 0.8);
+            --hover-bg: rgba(0, 255, 196, 0.08);
+            --font-mono: 'Consolas', 'Courier New', monospace;
+            --font-body: 'Cairo', sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            text-align: right;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, rgba(0, 255, 196, 0.02) 1px, transparent 2px),
+                repeating-linear-gradient(90deg, transparent, rgba(0, 255, 196, 0.02) 1px, transparent 2px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 1.3em;
+            color: var(--neon-accent);
+            text-shadow: var(--neon-shadow);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            border: 1px solid transparent;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-accent);
+            border-color: var(--neon-accent);
+            box-shadow: var(--neon-shadow);
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .sidebar h3 {
+            font-family: var(--font-mono);
+            color: var(--neon-accent);
+            font-size: 1em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-section h4 {
+            font-family: var(--font-body);
+            color: var(--text-light);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .sidebar-links {
+            list-style: none;
+        }
+
+        .sidebar-links li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-size: 0.85em;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-links a:hover {
+            color: var(--neon-accent);
+            background: var(--hover-bg);
+            padding-right: 15px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-action {
+            padding: 10px;
+            border: 1px solid var(--neon-accent);
+            border-radius: 3px;
+            background: transparent;
+            color: var(--neon-accent);
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background: var(--neon-accent);
+            color: var(--bg-dark);
+            box-shadow: var(--neon-shadow);
+        }
+
+        .content {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--neon-accent);
+            border-radius: 4px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .header-section h1 {
+            font-family: var(--font-mono);
+            font-size: 2.5em;
+            color: var(--neon-accent);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .meta-item {
+            font-family: var(--font-body);
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        .meta-item strong {
+            color: var(--neon-accent);
+        }
+
+        .description-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .description-section h2 {
+            font-family: var(--font-mono);
+            font-size: 1.5em;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .description-section h2::before {
+            content: '>';
+            color: var(--neon-accent);
+            margin-left: 10px;
+        }
+
+        .description-section p {
+            font-family: var(--font-body);
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .collapsible-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .collapsible-header {
+            padding: 20px;
+            background: rgba(0, 255, 196, 0.05);
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-family: var(--font-mono);
+            color: var(--neon-accent);
+            user-select: none;
+        }
+
+        .collapsible-header:hover {
+            background: rgba(0, 255, 196, 0.1);
+        }
+
+        .collapsible-header.active {
+            background: rgba(0, 255, 196, 0.15);
+        }
+
+        .collapsible-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-header.active .collapsible-icon {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            padding: 20px;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .collapsible-content.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 500px; }
+        }
+
+        .collapsible-content p {
+            font-family: var(--font-body);
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .collapsible-content ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .collapsible-content li {
+            font-family: var(--font-body);
+            color: var(--text-light);
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .collapsible-content li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--neon-accent);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            margin-top: 50px;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .header-section h1 {
+                font-size: 1.8em;
+            }
+
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00e6b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">D A R K Z E R O</a>
+        <nav class="nav-links">
+            <a href="index.html">[PROJECTS]</a>
+            <a href="about.html">[ABOUT]</a>
+        </nav>
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <h3>📂 القائمة</h3>
+            
+            <div class="sidebar-section">
+                <h4>الأقسام</h4>
+                <ul class="sidebar-links">
+                    <li><a href="index.html#section-01">01. Experiments</a></li>
+                    <li><a href="index.html#section-02">02. Tools</a></li>
+                    <li><a href="index.html#section-03">03. Demos</a></li>
+                    <li><a href="index.html#section-04">04. Messaging</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>التنقل</h4>
+                <ul class="sidebar-links">
+                    <li><a href="index.html">← العودة للرئيسية</a></li>
+                    <li><a href="about.html">عني</a></li>
+                </ul>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-action" onclick="downloadProject()">[DOWNLOAD]</button>
+                <button class="btn-action" onclick="openProject()">[OPEN]</button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <section class="header-section">
+                <h1>Galactic Love Engine</h1>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>الفئة:</strong> 01. Interactive Experiments
+                    </div>
+                    <div class="meta-item">
+                        <strong>النوع:</strong> 3D Visualization (Three.js)
+                    </div>
+                    <div class="meta-item">
+                        <strong>الحالة:</strong> <span style="color: var(--neon-accent);">✓ جاهز</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="description-section">
+                <h2>الوصف</h2>
+                <p>تجربة بصرية 3D لمجرة متلألئة بكلمات الحب العائمة، مع مشغل موسيقى مريح وتأثيرات نجوم ساحرة. يمكنك التفاعل مع المجرة وتدويرها لاستكشاف كل الكلمات الجميلة.</p>
+            </section>
+
+            <div class="collapsible-section">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                    <span>🎯 الميزات الرئيسية</span>
+                    <span class="collapsible-icon">▼</span>
+                </div>
+                <div class="collapsible-content">
+                    <ul>
+                        <li>مجرة ثلاثية الأبعاد تفاعلية</li>
+                        <li>كلمات حب عائمة في الفضاء</li>
+                        <li>مشغل موسيقى مدمج</li>
+                        <li>تأثيرات نجوم ساحرة</li>
+                        <li>تحكم كامل بالدوران والتكبير</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="collapsible-section">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                    <span>🛠️ التقنيات المستخدمة</span>
+                    <span class="collapsible-icon">▼</span>
+                </div>
+                <div class="collapsible-content">
+                    <ul>
+                        <li>Three.js</li>
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JavaScript</li>
+                        <li>Web Audio API</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="collapsible-section">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                    <span>📝 معلومات إضافية</span>
+                    <span class="collapsible-icon">▼</span>
+                </div>
+                <div class="collapsible-content">
+                    <p>هذا المشروع يجمع بين الفن والبرمجة لإنشاء تجربة بصرية فريدة. يستخدم مكتبة Three.js لرسم الرسومات ثلاثية الأبعاد.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>// END OF FILE // ACCESS LOG: 2025-10-27 07:45:00 UTC</p>
+        <p><strong>Dark Zero</strong> | عرض مشاريع تقنية وتجارب برمجية</p>
+        <p style="margin-top: 15px; font-size: 0.8em; color: var(--neon-accent);">-- SYSTEM STATUS: ONLINE --</p>
+    </footer>
+
+    <script>
+        const projectFile = "Galaxia😊😉.html";
+
+        function openProject() {
+            window.open(projectFile, '_blank');
+        }
+
+        function downloadProject() {
+            const link = document.createElement('a');
+            link.href = projectFile;
+            link.download = projectFile;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function toggleCollapsible(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstHeader = document.querySelector('.collapsible-header');
+            if (firstHeader) {
+                firstHeader.classList.add('active');
+                firstHeader.nextElementSibling.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مجموعة الملفات الخاصة بي | Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0a1428;
+            --primary-green: #1a5f3f;
+            --secondary-green: #2d8659;
+            --accent-green: #3db878;
+            --text-light: #e0e0e0;
+            --text-muted: #a8a8a8;
+            --border-color: #2d8659;
+            --hover-color: #3db878;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #0f1e2e 50%, var(--primary-green) 100%);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* خلفية متحركة بنقاط */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(61, 184, 120, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(45, 134, 89, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* شبكة خلفية */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(61, 184, 120, 0.05) 25%, rgba(61, 184, 120, 0.05) 26%, transparent 27%, transparent 74%, rgba(61, 184, 120, 0.05) 75%, rgba(61, 184, 120, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(61, 184, 120, 0.05) 25%, rgba(61, 184, 120, 0.05) 26%, transparent 27%, transparent 74%, rgba(61, 184, 120, 0.05) 75%, rgba(61, 184, 120, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* الرأس */
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            background: rgba(10, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(61, 184, 120, 0.2), transparent);
+            animation: shimmer 3s infinite;
+            z-index: 0;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(61, 184, 120, 0.5);
+            position: relative;
+            z-index: 1;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1em;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* شبكة الملفات */
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        /* بطاقة الملف */
+        .file-card {
+            background: linear-gradient(135deg, rgba(26, 95, 63, 0.3) 0%, rgba(45, 134, 89, 0.2) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.6s ease-out backwards;
+        }
+
+        .file-card:nth-child(1) { animation-delay: 0.1s; }
+        .file-card:nth-child(2) { animation-delay: 0.2s; }
+        .file-card:nth-child(3) { animation-delay: 0.3s; }
+        .file-card:nth-child(4) { animation-delay: 0.4s; }
+        .file-card:nth-child(5) { animation-delay: 0.5s; }
+        .file-card:nth-child(6) { animation-delay: 0.6s; }
+        .file-card:nth-child(n+7) { animation-delay: 0.7s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .file-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(61, 184, 120, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: 0;
+        }
+
+        .file-card:hover::before {
+            left: 100%;
+        }
+
+        .file-card:hover {
+            border-color: var(--accent-green);
+            background: linear-gradient(135deg, rgba(26, 95, 63, 0.5) 0%, rgba(45, 134, 89, 0.4) 100%);
+            box-shadow: 0 0 30px rgba(61, 184, 120, 0.4), inset 0 0 20px rgba(61, 184, 120, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .file-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .file-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .file-card:nth-child(odd) .file-icon {
+            animation-delay: 0s;
+        }
+
+        .file-card:nth-child(even) .file-icon {
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .file-title {
+            font-size: 1.4em;
+            color: var(--accent-green);
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(61, 184, 120, 0.3);
+        }
+
+        .file-description {
+            color: var(--text-muted);
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            min-height: 60px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, var(--secondary-green), var(--accent-green));
+            color: white;
+            border: 1px solid var(--accent-green);
+        }
+
+        .btn-download:hover {
+            box-shadow: 0 0 15px rgba(61, 184, 120, 0.5);
+            transform: scale(1.05);
+        }
+
+        .btn-preview {
+            background: transparent;
+            color: var(--accent-green);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-preview:hover {
+            background: rgba(61, 184, 120, 0.1);
+            border-color: var(--accent-green);
+        }
+
+        /* الفئات */
+        .category-section {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 1.8em;
+            color: var(--accent-green);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            text-shadow: 0 0 10px rgba(61, 184, 120, 0.3);
+        }
+
+        /* الفوتر */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 2px solid var(--border-color);
+            color: var(--text-muted);
+            margin-top: 50px;
+            background: rgba(10, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* تأثيرات الماوس */
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-green);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+            box-shadow: 0 0 10px rgba(61, 184, 120, 0.5);
+            display: none;
+        }
+
+        /* استجابة الجوال */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .files-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .file-card {
+                padding: 20px;
+            }
+
+            .category-title {
+                font-size: 1.4em;
+            }
+        }
+
+        /* شريط التمرير المخصص */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 20, 40, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-green);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-green);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💻 مجموعة الملفات الخاصة بي</h1>
+        <p>مجموعة متنوعة من تطبيقات HTML التفاعلية والديناميكية</p>
+    </header>
+
+    <div class="container">
+        <!-- القسم الأول: مجرات وأكوان 3D -->
+        <section class="category-section">
+            <h2 class="category-title">🌌 مجرات وأكوان ثلاثية الأبعاد</h2>
+            <div class="files-grid">
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">🌌</div>
+                        <h3 class="file-title">مجرة الحب</h3>
+                        <p class="file-description">تجربة بصرية 3D لمجرة متلألئة بكلمات الحب العائمة، مع مشغل موسيقى مريح وتأثيرات نجوم ساحرة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('Galaxia😊😉.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('Galaxia😊😉.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">💫</div>
+                        <h3 class="file-title">اقتراح تفاعلي</h3>
+                        <p class="file-description">تصميم رومانسي يبدأ بسؤال، وينتهي بمفاجأة بصرية مذهلة على شكل مجرة 3D مع موسيقى عاطفية.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('Galaxy🥰.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('Galaxy🥰.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">✨</div>
+                        <h3 class="file-title">مولد المجرة</h3>
+                        <p class="file-description">أداة لإنشاء مجرة 3D بكلماتك الخاصة وعبارة مركزية في قلب المجرة مع موسيقى خلفية جميلة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('مولدالمجره.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('مولدالمجره.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- القسم الثاني: تفاعلات عاطفية -->
+        <section class="category-section">
+            <h2 class="category-title">💝 تفاعلات عاطفية وطلبات</h2>
+            <div class="files-grid">
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">🐱</div>
+                        <h3 class="file-title">طلب اعتذار</h3>
+                        <p class="file-description">صفحة تفاعلية لطلب السماح، حيث يتصرف زر "لا" بطريقة مضحكة، مع مؤثرات بصرية جذابة وخلفية أورورا.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('MePerdonas.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('MePerdonas.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">😿</div>
+                        <h3 class="file-title">اعتذار متدرج</h3>
+                        <p class="file-description">رسالة اعتذار تتطور عبر مراحل، مع صور GIF معبرة وتأثير تصغير زر "لا" حتى يختفي تماماً.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('🐧🍃.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('🐧🍃.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">😡</div>
+                        <h3 class="file-title">رسائل "يا غاضبتي"</h3>
+                        <p class="file-description">سلسلة من الرسائل اللطيفة المتتابعة مع صور GIF معبرة وموسيقى خلفية عاطفية وجميلة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('MiEnojona.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('MiEnojona.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- القسم الثالث: ألعاب ممتعة -->
+        <section class="category-section">
+            <h2 class="category-title">🎮 ألعاب ممتعة وتفاعلية</h2>
+            <div class="files-grid">
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">🎡</div>
+                        <h3 class="file-title">عجلة حظ الحب</h3>
+                        <p class="file-description">لعبة روليت ممتعة ومصممة بشكل جميل، حيث يحدد "القدر" الإجابة بـ "نعم" أو "لا" مع مؤثرات بصرية رائعة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('Ruleta🪅.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('Ruleta🪅.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">🧩</div>
+                        <h3 class="file-title">لعبة ألغاز الحب</h3>
+                        <p class="file-description">أداة لإنشاء لعبة ألغاز تفاعلية من صورة ورسالة، تنتهي بمفاجأة جميلة بعد حل اللغز بنجاح.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('PuzzleلغزAmor.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('PuzzleلغزAmor.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- القسم الرابع: عروض فنية -->
+        <section class="category-section">
+            <h2 class="category-title">🎨 عروض فنية وتصاميم جميلة</h2>
+            <div class="files-grid">
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">💐</div>
+                        <h3 class="file-title">باقة ورد 3D</h3>
+                        <p class="file-description">عرض تفاعلي لباقة ورد ثلاثية الأبعاد، يمكن تدويرها واستكشافها مع موسيقى هادئة وجميلة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('Flores🌼♥️.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('Flores🌼♥️.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">🌹</div>
+                        <h3 class="file-title">زهرة الليل المتلألئة</h3>
+                        <p class="file-description">تصميم فني ثلاثي الأبعاد لزهرة متحركة، مع مؤثرات نجوم متساقطة وخلفية ليلية ساحرة جداً.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('rose💐.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('rose💐.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">🌻</div>
+                        <h3 class="file-title">حديقة عباد الشمس</h3>
+                        <p class="file-description">تصميم 3D لزهرة عباد الشمس، مع تأثيرات نجوم متساقطة وخلفية ليلية مليئة بالسحر والجمال.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('rose🌼.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('rose🌼.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">❤️</div>
+                        <h3 class="file-title">القلب الكوني</h3>
+                        <p class="file-description">عرض فني لقلب مكون من جزيئات كونية، يتفاعل مع حركة الماوس، مع مؤثرات نيزكية رائعة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('❤️.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('❤️.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">💓</div>
+                        <h3 class="file-title">النبض السحري</h3>
+                        <p class="file-description">قلب نابض يرسل رسائل حب وقلوب متلألئة في خلفية كونية مليئة بالنجوم والسحر.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('نبض❤️.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('نبض❤️.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- القسم الخامس: كتب تفاعلية -->
+        <section class="category-section">
+            <h2 class="category-title">📚 كتب تفاعلية وقابلة للتقليب</h2>
+            <div class="files-grid">
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">📖</div>
+                        <h3 class="file-title">كتاب الحب</h3>
+                        <p class="file-description">كتاب 3D يمكن تقليب صفحاته، يحتوي على رسائل حب رومانسية ومؤثرات نجوم متساقطة جميلة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('Libro📖.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('Libro📖.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">🦸</div>
+                        <h3 class="file-title">كتاب مارفل</h3>
+                        <p class="file-description">كتاب 3D لكل صفحة فيه شخصية من مارفل، مع مقطع صوتي خاص لكل بطل وتأثيرات بصرية رائعة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('LibroMarvel❤️.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('LibroMarvel❤️.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- القسم السادس: أدوات مخصصة -->
+        <section class="category-section">
+            <h2 class="category-title">⚙️ أدوات مخصصة ومولدات</h2>
+            <div class="files-grid">
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">🎂</div>
+                        <h3 class="file-title">رسالة عيد ميلاد</h3>
+                        <p class="file-description">تصميم احتفالي ومتحرك لرسالة عيد ميلاد، مع مؤثرات بصرية مبهجة وألوان زاهية جميلة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('🎂🫵🏻_1.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('🎂🫵🏻_1.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">⏰</div>
+                        <h3 class="file-title">مولد عداد التاريخ</h3>
+                        <p class="file-description">أداة لإنشاء صفحة عد تنازلي لتاريخ خاص، مع مؤثرات ألعاب نارية وساعة أنيقة وجميلة.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('تاريخ.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('تاريخ.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file-card">
+                    <div class="file-card-content">
+                        <div class="file-icon">💎</div>
+                        <h3 class="file-title">مولد الكرة الموسيقية</h3>
+                        <p class="file-description">أداة لإنشاء كرة بلورية 3D تتفاعل وتنبض مع إيقاع الموسيقى المرفوعة بشكل مذهل.</p>
+                        <div class="file-actions">
+                            <a href="#" class="btn btn-download" onclick="downloadFile('مجالالموسيقي.html'); return false;">⬇️ تحميل</a>
+                            <a href="#" class="btn btn-preview" onclick="previewFile('مجالالموسيقي.html'); return false;">👁️ عرض</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>💚 مجموعة الملفات الخاصة بي | جميع الملفات مصممة بحب واهتمام</p>
+        <p>🎨 طابع برمجي | ألوان أخضر داكن | حركات ديناميكية</p>
+    </footer>
+
+    <script>
+        // وظيفة تحميل الملف
+        function downloadFile(filename) {
+            const link = document.createElement('a');
+            link.href = filename;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // وظيفة عرض الملف
+        function previewFile(filename) {
+            window.open(filename, '_blank');
+        }
+
+        // تأثير الماوس المتابع
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.querySelector('.cursor-glow');
+            if (cursor) {
+                cursor.style.left = (e.clientX - 10) + 'px';
+                cursor.style.top = (e.clientY - 10) + 'px';
+            }
+        });
+
+        // تأثير الحركة عند التمرير
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.file-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // تأثير الموجة عند التمرير على البطاقات
+        document.querySelectorAll('.file-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+        });
+    </script>
+</body>
+</html>
+
