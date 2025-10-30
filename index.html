@@ -1,41 +1,41 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fares M. | مشاريع برمجية وتقنية</title>
+    <title>Dark Zero | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* إعادة تعيين أساسية */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* متغيرات الألوان الجديدة (الهاكر الأخلاقي) */
         :root {
-            --bg-dark: #000000; /* خلفية سوداء نقية */
-            --text-light: #e0e0e0; /* نص رمادي فاتح */
-            --text-muted: #888888; /* نص ثانوي رمادي */
-            --neon-accent: #00ffc4; /* أخضر/تركواز نيوني */
-            --neon-shadow: 0 0 10px rgba(0, 255, 196, 0.6);
-            --border-color: #004d3c;
-            --card-bg: rgba(10, 10, 10, 0.8);
-            --hover-bg: rgba(0, 255, 196, 0.08);
-            --font-mono: 'Consolas', 'Courier New', monospace;
+            --primary-color: #00ffc4;
+            --secondary-color: #0a0e27;
+            --text-light: #e0e0e0;
+            --text-dark: #0a0e27;
+            --accent-color: #ff006e;
+            --bg-dark: #000000;
         }
 
         html, body {
             width: 100%;
             height: 100%;
-            background-color: var(--bg-dark);
-            font-family: var(--font-mono);
-            color: var(--text-light);
             overflow-x: hidden;
-            text-align: right; /* دعم اللغة العربية */
         }
 
-        /* تأثير مصفوفة الخلفية (Matrix Effect) */
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0e27 50%, #001a2e 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* شبكة متحركة في الخلفية */
         body::before {
             content: '';
             position: fixed;
@@ -44,579 +44,861 @@
             width: 100%;
             height: 100%;
             background-image: 
-                repeating-linear-gradient(0deg, transparent, rgba(0, 255, 196, 0.02) 1px, transparent 2px),
-                repeating-linear-gradient(90deg, transparent, rgba(0, 255, 196, 0.02) 1px, transparent 2px);
-            background-size: 20px 20px;
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 196, 0.05) 25%, rgba(0, 255, 196, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 196, 0.05) 75%, rgba(0, 255, 196, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 196, 0.05) 25%, rgba(0, 255, 196, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 196, 0.05) 75%, rgba(0, 255, 196, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
             pointer-events: none;
-            z-index: -1;
-            opacity: 0.5;
+            z-index: 0;
+            animation: grid-move 20s linear infinite;
         }
 
-        /* الرأس - منطقة الهوية */
+        @keyframes grid-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* الرأس */
         header {
-            padding: 50px 20px 30px;
+            position: relative;
+            z-index: 10;
+            padding: 40px 20px;
             text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(5px);
+            border-bottom: 2px solid var(--primary-color);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Consolas', monospace;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-family: 'Consolas', monospace;
+            font-size: 1rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
+        }
+
+        /* قائمة التنقل */
+        nav {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        nav a {
+            display: inline-block;
+            margin: 0 20px;
+            padding: 10px 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-family: 'Consolas', monospace;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            z-index: -1;
+            transition: left 0.3s ease;
         }
 
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid var(--neon-accent);
-            object-fit: cover;
-            box-shadow: var(--neon-shadow);
-            transition: all 0.5s ease;
-            filter: grayscale(100%) brightness(120%); /* تعديل الصورة لتناسب الطابع */
-            animation: pulse 2s infinite alternate;
+        nav a:hover {
+            color: var(--text-dark);
+            left: 0;
         }
 
-        .profile-image:hover {
-            filter: grayscale(0%) brightness(100%);
-            transform: scale(1.05);
+        nav a:hover::before {
+            left: 0;
         }
 
-        @keyframes pulse {
-            from { box-shadow: 0 0 10px rgba(0, 255, 196, 0.6); }
-            to { box-shadow: 0 0 20px rgba(0, 255, 196, 0.9); }
-        }
-
-        .title-section {
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 3em;
-            color: var(--neon-accent);
-            margin-bottom: 5px;
-            text-shadow: var(--neon-shadow);
-            letter-spacing: 4px;
-            animation: glitch 1s infinite alternate;
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: var(--neon-shadow); transform: translate(1px, 1px); }
-            50% { text-shadow: none; transform: translate(-1px, -1px); }
-            100% { text-shadow: var(--neon-shadow); transform: translate(0); }
-        }
-
-        .name-decorated {
-            font-size: 1.2em;
-            color: var(--text-light);
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1em;
-            text-transform: uppercase;
-        }
-
-        /* الحاوية الرئيسية */
-        .container {
-            max-width: 1200px;
+        /* المحتوى الرئيسي */
+        main {
+            position: relative;
+            z-index: 5;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 40px 20px;
-            position: relative;
         }
 
-        /* شبكة الملفات */
-        .files-grid {
+        /* عنوان القسم */
+        .section-title {
+            font-family: 'Consolas', monospace;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 50px 0 30px 0;
+            padding: 20px 0;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 20px;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* شبكة البطاقات */
+        .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            gap: 25px;
+            margin-bottom: 50px;
         }
 
-        /* بطاقة الملف */
-        .file-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-left: 5px solid var(--neon-accent);
-            border-radius: 4px;
-            padding: 20px;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.8s ease-out backwards;
+        /* البطاقة */
+        .project-card {
+            background: rgba(10, 14, 39, 0.8);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out forwards;
         }
 
-        .file-card:hover {
-            background: var(--hover-bg);
-            border-color: var(--neon-accent);
-            box-shadow: 0 0 15px rgba(0, 255, 196, 0.4);
-            transform: translateY(-5px);
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 196, 0.1) 0%, transparent 70%);
+            transition: all 0.5s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 30px var(--primary-color), 0 0 60px rgba(0, 255, 196, 0.3);
+            border-color: var(--accent-color);
         }
 
-        .file-icon {
-            font-size: 2em;
+        .project-card:hover::before {
+            top: -25%;
+            left: -25%;
+        }
+
+        .project-card h3 {
+            font-family: 'Consolas', monospace;
+            font-size: 1.3rem;
+            color: var(--primary-color);
             margin-bottom: 10px;
-            color: var(--neon-accent);
+            position: relative;
+            z-index: 2;
         }
 
-        .file-title {
-            font-size: 1.2em;
+        .project-card .emoji {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        .project-card p {
             color: var(--text-light);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .file-description {
-            color: var(--text-muted);
-            font-size: 0.85em;
-            line-height: 1.5;
+            font-size: 0.95rem;
             margin-bottom: 15px;
-            min-height: 50px;
+            position: relative;
+            z-index: 2;
+            font-family: 'Cairo', sans-serif;
         }
 
-        .file-actions {
+        .project-card .buttons {
             display: flex;
             gap: 10px;
+            margin-top: 15px;
+            position: relative;
+            z-index: 2;
         }
 
         .btn {
             flex: 1;
-            padding: 8px 12px;
-            border: 1px solid var(--neon-accent);
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.85em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-            color: var(--neon-accent);
+            padding: 10px 15px;
+            border: 1px solid var(--primary-color);
             background: transparent;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-family: 'Consolas', monospace;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .btn:hover {
-            background: var(--neon-accent);
-            color: var(--bg-dark);
-            box-shadow: var(--neon-shadow);
+            background: var(--primary-color);
+            color: var(--text-dark);
+            box-shadow: 0 0 15px var(--primary-color);
         }
 
-        /* الفئات */
-        .category-section {
-            margin-bottom: 50px;
+        .btn-download {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
         }
 
-        .category-title {
-            font-size: 1.5em;
-            color: var(--text-light);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
+        .btn-download:hover {
+            background: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        /* النافذة المنبثقة (Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0a0e27 0%, #001a2e 100%);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
             position: relative;
-            text-transform: uppercase;
+            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 0 50px var(--primary-color);
         }
 
-        .category-title::before {
-            content: '>';
-            color: var(--neon-accent);
-            margin-left: 10px;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .modal-header {
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            font-family: 'Consolas', monospace;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .modal-header .emoji {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+        }
+
+        .modal-body h3 {
+            color: var(--primary-color);
+            font-family: 'Consolas', monospace;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .modal-body p, .modal-body ul {
+            color: var(--text-light);
+            font-family: 'Cairo', sans-serif;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .modal-body ul {
+            margin-left: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 8px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            border-top: 2px solid var(--primary-color);
+            padding-top: 20px;
+        }
+
+        .modal-footer .btn {
+            flex: 1;
+            padding: 12px;
         }
 
         /* الفوتر */
         footer {
-            text-align: center;
+            position: relative;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 2px solid var(--primary-color);
             padding: 30px 20px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
+            text-align: center;
             margin-top: 50px;
-            background: rgba(0, 0, 0, 0.9);
         }
 
         .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed var(--border-color);
+            margin-bottom: 20px;
         }
 
-        .contact-item {
-            color: var(--text-muted);
-            font-size: 0.9em;
-        }
-
-        .contact-item a {
-            color: var(--neon-accent);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            color: var(--text-light);
-            text-shadow: 0 0 5px var(--neon-accent);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border: 1px solid var(--neon-accent);
-            border-radius: 3px;
-            color: var(--neon-accent);
+        .contact-info a {
+            display: inline-block;
+            margin: 0 15px;
+            color: var(--primary-color);
             text-decoration: none;
             transition: all 0.3s ease;
-            font-size: 0.7em;
-            text-transform: uppercase;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
         }
 
-        .social-link:hover {
-            background: var(--neon-accent);
-            color: var(--bg-dark);
-            box-shadow: var(--neon-shadow);
+        .contact-info a:hover {
+            text-shadow: 0 0 10px var(--primary-color);
+            transform: scale(1.1);
         }
 
-        /* استجابة الجوال */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.2em;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .profile-image {
-                width: 90px;
-                height: 90px;
-            }
-
-            .files-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+        .footer-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-family: 'Cairo', sans-serif;
         }
 
         /* شريط التمرير المخصص */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #111;
+            background: rgba(0, 0, 0, 0.5);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--neon-accent);
-            border-radius: 4px;
+            background: var(--primary-color);
+            border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #00e6b3;
+            background: var(--accent-color);
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 25px;
+                max-height: 90vh;
+            }
+
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- الرأس -->
     <header>
-        <div class="header-content">
-            <div class="profile-section">
-                <img src="profile.jpg" alt="Fares M." class="profile-image">
-            </div>
-            <div class="title-section">
-                <h1>✨ F A R E S M . ✨</h1>
-                <div class="name-decorated">// Dark Zero | Ethical Hacker & Developer</div>
-                <p>عرض مشاريع تقنية وتجارب برمجية</p>
-            </div>
-        </div>
+        <h1>✨ F A R E S M . ✨</h1>
+        <p class="subtitle">Dark Zero | Ethical Hacker & Developer</p>
     </header>
 
-    <div class="container">
-        <!-- القسم الأول: التجارب التفاعلية (Interactive Experiments) -->
-        <section class="category-section">
-            <h2 class="category-title">01. Interactive Experiments</h2>
-            <div class="files-grid">
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">🌌</div>
-                        <h3 class="file-title">Galactic Love Engine (Three.js)</h3>
-                        <p class="file-description">تجربة بصرية 3D لمجرة متلألئة بكلمات الحب العائمة، مع مشغل موسيقى مريح وتأثيرات نجوم ساحرة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('Galaxia😊😉.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('Galaxia😊😉.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
+    <!-- قائمة التنقل -->
+    <nav>
+        <a href="index.html">[PROJECTS]</a>
+        <a href="about.html">[ABOUT]</a>
+        <a href="login.html">[LOGIN]</a>
+    </nav>
 
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">💫</div>
-                        <h3 class="file-title">Proposal Protocol (3D Reveal)</h3>
-                        <p class="file-description">تصميم رومانسي يبدأ بسؤال، وينتهي بمفاجأة بصرية مذهلة على شكل مجرة 3D مع موسيقى عاطفية.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('Galaxy🥰.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('Galaxy🥰.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">❤️</div>
-                        <h3 class="file-title">Cosmic Heart Reaction</h3>
-                        <p class="file-description">عرض فني لقلب مكون من جزيئات كونية، يتفاعل مع حركة الماوس، مع مؤثرات نيزكية رائعة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('❤️.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('❤️.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">💓</div>
-                        <h3 class="file-title">Magic Pulse Generator</h3>
-                        <p class="file-description">قلب نابض يرسل رسائل حب وقلوب متلألئة في خلفية كونية مليئة بالنجوم والسحر.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('نبض❤️.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('نبض❤️.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
+    <!-- المحتوى الرئيسي -->
+    <main>
+        <!-- القسم الأول -->
+        <h2 class="section-title">01 // INTERACTIVE EXPERIMENTS</h2>
+        <div class="projects-grid">
+            <div class="project-card" onclick="openModal('galaxia')">
+                <h3><span class="emoji">🌌</span>Galactic Love Engine</h3>
+                <p>تجربة برمجية تفاعلية تجمع بين الفن والتكنولوجيا مع تأثيرات 3D وحركات ديناميكية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('Galaxia😊😉.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('Galaxia😊😉.html', event)">تحميل</button>
                 </div>
             </div>
-        </section>
 
-        <!-- القسم الثاني: أدوات ومولدات (Tools & Generators) -->
-        <section class="category-section">
-            <h2 class="category-title">02. Tools & Generators</h2>
-            <div class="files-grid">
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">⏰</div>
-                        <h3 class="file-title">Countdown Timer Utility</h3>
-                        <p class="file-description">أداة لإنشاء صفحة عد تنازلي لتاريخ خاص، مع مؤثرات ألعاب نارية وساعة أنيقة وجميلة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('تاريخ.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('تاريخ.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">💎</div>
-                        <h3 class="file-title">3D Music Sphere Generator</h3>
-                        <p class="file-description">أداة لإنشاء كرة بلورية 3D تتفاعل وتنبض مع إيقاع الموسيقى المرفوعة بشكل مذهل.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('مجالالموسيقي.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('مجالالموسيقي.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">✨</div>
-                        <h3 class="file-title">Custom Galaxy Builder</h3>
-                        <p class="file-description">أداة لإنشاء مجرة 3D بكلماتك الخاصة وعبارة مركزية في قلب المجرة مع موسيقى خلفية جميلة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('مولدالمجره.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('مولدالمجره.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">🧩</div>
-                        <h3 class="file-title">Interactive Puzzle Engine</h3>
-                        <p class="file-description">أداة لإنشاء لعبة ألغاز تفاعلية من صورة ورسالة، تنتهي بمفاجأة جميلة بعد حل اللغز بنجاح.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('PuzzleلغزAmor.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('PuzzleلغزAmor.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
+            <div class="project-card" onclick="openModal('galaxy')">
+                <h3><span class="emoji">🥰</span>Proposal Protocol</h3>
+                <p>بروتوكول اقتراح تفاعلي مع رسومات ثلاثية الأبعاد وحركات سلسة.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('Galaxy🥰.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('Galaxy🥰.html', event)">تحميل</button>
                 </div>
             </div>
-        </section>
 
-        <!-- القسم الثالث: عروض فنية (Visual Demos) -->
-        <section class="category-section">
-            <h2 class="category-title">03. Visual Demos</h2>
-            <div class="files-grid">
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">💐</div>
-                        <h3 class="file-title">3D Flower Bouquet (Three.js)</h3>
-                        <p class="file-description">عرض تفاعلي لباقة ورد ثلاثية الأبعاد، يمكن تدويرها واستكشافها مع موسيقى هادئة وجميلة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('Flores🌼♥️.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('Flores🌼♥️.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">🌹</div>
-                        <h3 class="file-title">Neon Rose Animation (CSS 3D)</h3>
-                        <p class="file-description">تصميم فني ثلاثي الأبعاد لزهرة متحركة، مع مؤثرات نجوم متساقطة وخلفية ليلية ساحرة جداً.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('rose💐.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('rose💐.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">🌻</div>
-                        <h3 class="file-title">Stellar Sunflower Garden (CSS 3D)</h3>
-                        <p class="file-description">تصميم 3D لزهرة عباد الشمس، مع تأثيرات نجوم متساقطة وخلفية ليلية مليئة بالسحر والجمال.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('rose🌼.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('rose🌼.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">🎂</div>
-                        <h3 class="file-title">Celebration Message Demo</h3>
-                        <p class="file-description">تصميم احتفالي ومتحرك لرسالة عيد ميلاد، مع مؤثرات بصرية مبهجة وألوان زاهية جميلة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('🎂🫵🏻_1.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('🎂🫵🏻_1.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
+            <div class="project-card" onclick="openModal('heart')">
+                <h3><span class="emoji">❤️</span>Cosmic Heart Reaction</h3>
+                <p>قلب كوني متفاعل يستجيب للحركة والتفاعل مع تأثيرات بصرية مذهلة.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('❤️.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('❤️.html', event)">تحميل</button>
                 </div>
             </div>
-        </section>
 
-        <!-- القسم الرابع: تطبيقات الرسائل (Messaging Applications) -->
-        <section class="category-section">
-            <h2 class="category-title">04. Messaging Applications</h2>
-            <div class="files-grid">
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">📖</div>
-                        <h3 class="file-title">3D Love Book (CSS 3D)</h3>
-                        <p class="file-description">كتاب 3D يمكن تقليب صفحاته، يحتوي على رسائل حب رومانسية ومؤثرات نجوم متساقطة جميلة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('Libro📖.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('Libro📖.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">🦸</div>
-                        <h3 class="file-title">Marvel Flip Book (Audio Integration)</h3>
-                        <p class="file-description">كتاب 3D لكل صفحة فيه شخصية من مارفل، مع مقطع صوتي خاص لكل بطل وتأثيرات بصرية رائعة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('LibroMarvel❤️.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('LibroMarvel❤️.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">🐱</div>
-                        <h3 class="file-title">Apology Protocol (Interactive)</h3>
-                        <p class="file-description">صفحة تفاعلية لطلب السماح، حيث يتصرف زر "لا" بطريقة مضحكة، مع مؤثرات بصرية جذابة وخلفية أورورا.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('MePerdonas.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('MePerdonas.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">😿</div>
-                        <h3 class="file-title">Gradual Apology Sequence</h3>
-                        <p class="file-description">رسالة اعتذار تتطور عبر مراحل، مع صور GIF معبرة وتأثير تصغير زر "لا" حتى يختفي تماماً.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('🐧🍃.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('🐧🍃.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">😡</div>
-                        <h3 class="file-title">Sequential Message Chain</h3>
-                        <p class="file-description">سلسلة من الرسائل اللطيفة المتتابعة مع صور GIF معبرة وموسيقى خلفية عاطفية وجميلة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('MiEnojona.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('MiEnojona.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="file-card">
-                    <div class="file-card-content">
-                        <div class="file-icon">🎡</div>
-                        <h3 class="file-title">Love Roulette Game</h3>
-                        <p class="file-description">لعبة روليت ممتعة ومصممة بشكل جميل، حيث يحدد "القدر" الإجابة بـ "نعم" أو "لا" مع مؤثرات بصرية رائعة.</p>
-                        <div class="file-actions">
-                            <a href="#" class="btn" onclick="downloadFile('Ruleta🪅.html'); return false;">[DOWNLOAD]</a>
-                            <a href="#" class="btn" onclick="previewFile('Ruleta🪅.html'); return false;">[PREVIEW]</a>
-                        </div>
-                    </div>
+            <div class="project-card" onclick="openModal('pulse')">
+                <h3><span class="emoji">💓</span>Magic Pulse Generator</h3>
+                <p>مولد نبضات سحري يخلق تأثيرات بصرية متحركة وجميلة.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('نبض❤️.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('نبض❤️.html', event)">تحميل</button>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- القسم الثاني -->
+        <h2 class="section-title">02 // TOOLS & GENERATORS</h2>
+        <div class="projects-grid">
+            <div class="project-card" onclick="openModal('countdown')">
+                <h3><span class="emoji">⏱️</span>Countdown Timer Utility</h3>
+                <p>أداة عداد تنازلي احترافية مع واجهة سهلة الاستخدام.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('تاريخ.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('تاريخ.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('music')">
+                <h3><span class="emoji">🎵</span>3D Music Sphere Generator</h3>
+                <p>مولد كرة موسيقية ثلاثية الأبعاد مع تأثيرات صوتية وبصرية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('مجالالموسيقي.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('مجالالموسيقي.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('galaxy-builder')">
+                <h3><span class="emoji">🌠</span>Custom Galaxy Builder</h3>
+                <p>أداة بناء مجرات مخصصة مع إمكانيات تخصيص عالية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('مولدالمجره.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('مولدالمجره.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('puzzle')">
+                <h3><span class="emoji">🧩</span>Interactive Puzzle Engine</h3>
+                <p>محرك ألغاز تفاعلي مع مستويات متعددة وتحديات مثيرة.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('PuzzleلغزAmor.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('PuzzleلغزAmor.html', event)">تحميل</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الثالث -->
+        <h2 class="section-title">03 // VISUAL DEMOS</h2>
+        <div class="projects-grid">
+            <div class="project-card" onclick="openModal('flowers')">
+                <h3><span class="emoji">🌼</span>3D Flower Bouquet</h3>
+                <p>باقة زهور ثلاثية الأبعاد جميلة مع حركات سلسة وتأثيرات بصرية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('Flores🌼♥️.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('Flores🌼♥️.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('rose-anim')">
+                <h3><span class="emoji">💐</span>Neon Rose Animation</h3>
+                <p>وردة نيون متحركة مع تأثيرات إضاءة ديناميكية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('rose💐.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('rose💐.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('sunflower')">
+                <h3><span class="emoji">🌻</span>Stellar Sunflower Garden</h3>
+                <p>حديقة عباد شمس نجمية مع تأثيرات بصرية ساحرة.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('rose🌼.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('rose🌼.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('celebration')">
+                <h3><span class="emoji">🎉</span>Celebration Message Demo</h3>
+                <p>عرض رسالة احتفالية مع تأثيرات بصرية احتفالية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('🎂🫵🏻_1.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('🎂🫵🏻_1.html', event)">تحميل</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الرابع -->
+        <h2 class="section-title">04 // MESSAGING APPLICATIONS</h2>
+        <div class="projects-grid">
+            <div class="project-card" onclick="openModal('love-book')">
+                <h3><span class="emoji">📖</span>3D Love Book</h3>
+                <p>كتاب حب ثلاثي الأبعاد تفاعلي مع صفحات قابلة للقلب.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('Libro📖.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('Libro📖.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('marvel-book')">
+                <h3><span class="emoji">❤️</span>Marvel Flip Book</h3>
+                <p>كتاب مارفل قابل للقلب مع تصاميم احترافية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('LibroMarvel❤️.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('LibroMarvel❤️.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('apology')">
+                <h3><span class="emoji">😔</span>Apology Protocol</h3>
+                <p>بروتوكول اعتذار تفاعلي مع رسائل شخصية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('MePerdonas.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('MePerdonas.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('gradual-apology')">
+                <h3><span class="emoji">🐧</span>Gradual Apology Sequence</h3>
+                <p>سلسلة اعتذار تدريجية مع رسائل متسلسلة.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('🐧🍃.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('🐧🍃.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('message-chain')">
+                <h3><span class="emoji">💬</span>Sequential Message Chain</h3>
+                <p>سلسلة رسائل متسلسلة مع تأثيرات انتقالية.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('MiEnojona.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('MiEnojona.html', event)">تحميل</button>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('roulette')">
+                <h3><span class="emoji">🎡</span>Love Roulette Game</h3>
+                <p>لعبة روليت حب تفاعلية مع جوائز مثيرة.</p>
+                <div class="buttons">
+                    <button class="btn" onclick="previewFile('Ruleta🪅.html', event)">عرض</button>
+                    <button class="btn btn-download" onclick="downloadFile('Ruleta🪅.html', event)">تحميل</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- النافذة المنبثقة (Modal) -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h2><span id="modal-emoji" class="emoji">🌌</span><span id="modal-title">Project Title</span></h2>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- سيتم ملء المحتوى بواسطة JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="modal-open-btn" onclick="openFile()">فتح</button>
+                <button class="btn btn-download" id="modal-download-btn" onclick="downloadCurrentFile()">تحميل</button>
+            </div>
+        </div>
     </div>
 
+    <!-- الفوتر -->
     <footer>
-        <p>// END OF FILE // ACCESS LOG: 2025-10-27 07:45:00 UTC</p>
-        <p><strong>Dark Zero</strong> | عرض مشاريع تقنية وتجارب برمجية</p>
-        
         <div class="contact-info">
-            <div class="contact-item">
-                [EMAIL]: <a href="mailto:farsmstfyfars056@gmail.com">farsmstfyfars056@gmail.com</a>
-            </div>
-            <div class="contact-item">
-                [WHATSAPP]: <a href="https://wa.me/201061742814" target="_blank">01061742814</a>
-            </div>
+            <a href="mailto:farsmstfyfars056@gmail.com">📧 Email</a>
+            <a href="https://wa.me/201061742814">📱 WhatsApp</a>
+            <a href="https://tiktok.com/@ckf99">🎵 TikTok</a>
+            <a href="https://instagram.com/ana_elfares565">📷 Instagram</a>
         </div>
-
-        <div class="social-links">
-            <a href="https://www.tiktok.com/@ckf99" target="_blank" class="social-link" title="TikTok">TK</a>
-            <a href="https://www.instagram.com/ana_elfares565" target="_blank" class="social-link" title="Instagram">IG</a>
-        </div>
-
-        <p style="margin-top: 15px; font-size: 0.8em; color: var(--neon-accent);">-- SYSTEM STATUS: ONLINE --</p>
+        <p class="footer-text">Dark Zero | Ethical Hacker & Developer | © 2025</p>
     </footer>
 
     <script>
-        // وظيفة تحميل الملف
-        function downloadFile(filename) {
+        // بيانات المشاريع
+        const projects = {
+            galaxia: {
+                title: 'Galactic Love Engine',
+                emoji: '🌌',
+                description: 'تجربة برمجية تفاعلية تجمع بين الفن والتكنولوجيا مع تأثيرات 3D وحركات ديناميكية.',
+                features: ['تأثيرات 3D متقدمة', 'حركات سلسة', 'واجهة تفاعلية', 'رسومات عالية الجودة'],
+                technologies: ['Three.js', 'WebGL', 'JavaScript', 'CSS3'],
+                file: 'Galaxia😊😉.html'
+            },
+            galaxy: {
+                title: 'Proposal Protocol',
+                emoji: '🥰',
+                description: 'بروتوكول اقتراح تفاعلي مع رسومات ثلاثية الأبعاد وحركات سلسة.',
+                features: ['رسومات 3D احترافية', 'حركات انتقالية', 'واجهة سهلة الاستخدام'],
+                technologies: ['Three.js', 'JavaScript', 'HTML5', 'CSS3'],
+                file: 'Galaxy🥰.html'
+            },
+            heart: {
+                title: 'Cosmic Heart Reaction',
+                emoji: '❤️',
+                description: 'قلب كوني متفاعل يستجيب للحركة والتفاعل مع تأثيرات بصرية مذهلة.',
+                features: ['استجابة للحركة', 'تأثيرات بصرية', 'حركات ديناميكية'],
+                technologies: ['Canvas API', 'JavaScript', 'CSS3'],
+                file: '❤️.html'
+            },
+            pulse: {
+                title: 'Magic Pulse Generator',
+                emoji: '💓',
+                description: 'مولد نبضات سحري يخلق تأثيرات بصرية متحركة وجميلة.',
+                features: ['نبضات متحركة', 'تأثيرات بصرية', 'ألوان ديناميكية'],
+                technologies: ['Canvas API', 'JavaScript', 'CSS3'],
+                file: 'نبض❤️.html'
+            },
+            countdown: {
+                title: 'Countdown Timer Utility',
+                emoji: '⏱️',
+                description: 'أداة عداد تنازلي احترافية مع واجهة سهلة الاستخدام.',
+                features: ['عداد تنازلي دقيق', 'واجهة سهلة', 'إشعارات صوتية'],
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                file: 'تاريخ.html'
+            },
+            music: {
+                title: '3D Music Sphere Generator',
+                emoji: '🎵',
+                description: 'مولد كرة موسيقية ثلاثية الأبعاد مع تأثيرات صوتية وبصرية.',
+                features: ['كرة 3D دوارة', 'تأثيرات صوتية', 'تأثيرات بصرية'],
+                technologies: ['Three.js', 'Web Audio API', 'JavaScript'],
+                file: 'مجالالموسيقي.html'
+            },
+            'galaxy-builder': {
+                title: 'Custom Galaxy Builder',
+                emoji: '🌠',
+                description: 'أداة بناء مجرات مخصصة مع إمكانيات تخصيص عالية.',
+                features: ['بناء مجرات مخصصة', 'تخصيص عالي', 'حفظ النتائج'],
+                technologies: ['Three.js', 'JavaScript', 'HTML5'],
+                file: 'مولدالمجره.html'
+            },
+            puzzle: {
+                title: 'Interactive Puzzle Engine',
+                emoji: '🧩',
+                description: 'محرك ألغاز تفاعلي مع مستويات متعددة وتحديات مثيرة.',
+                features: ['مستويات متعددة', 'تحديات مثيرة', 'نظام نقاط'],
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                file: 'PuzzleلغزAmor.html'
+            },
+            flowers: {
+                title: '3D Flower Bouquet',
+                emoji: '🌼',
+                description: 'باقة زهور ثلاثية الأبعاد جميلة مع حركات سلسة وتأثيرات بصرية.',
+                features: ['زهور 3D', 'حركات سلسة', 'تأثيرات بصرية جميلة'],
+                technologies: ['Three.js', 'WebGL', 'JavaScript'],
+                file: 'Flores🌼♥️.html'
+            },
+            'rose-anim': {
+                title: 'Neon Rose Animation',
+                emoji: '💐',
+                description: 'وردة نيون متحركة مع تأثيرات إضاءة ديناميكية.',
+                features: ['وردة نيون', 'إضاءة ديناميكية', 'حركات سلسة'],
+                technologies: ['Canvas API', 'JavaScript', 'CSS3'],
+                file: 'rose💐.html'
+            },
+            sunflower: {
+                title: 'Stellar Sunflower Garden',
+                emoji: '🌻',
+                description: 'حديقة عباد شمس نجمية مع تأثيرات بصرية ساحرة.',
+                features: ['عباد شمس نجمية', 'تأثيرات ساحرة', 'حركات ديناميكية'],
+                technologies: ['Canvas API', 'JavaScript', 'CSS3'],
+                file: 'rose🌼.html'
+            },
+            celebration: {
+                title: 'Celebration Message Demo',
+                emoji: '🎉',
+                description: 'عرض رسالة احتفالية مع تأثيرات بصرية احتفالية.',
+                features: ['رسائل احتفالية', 'تأثيرات احتفالية', 'حركات بهيجة'],
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                file: '🎂🫵🏻_1.html'
+            },
+            'love-book': {
+                title: '3D Love Book',
+                emoji: '📖',
+                description: 'كتاب حب ثلاثي الأبعاد تفاعلي مع صفحات قابلة للقلب.',
+                features: ['صفحات قابلة للقلب', 'تأثيرات 3D', 'محتوى شخصي'],
+                technologies: ['Three.js', 'JavaScript', 'HTML5'],
+                file: 'Libro📖.html'
+            },
+            'marvel-book': {
+                title: 'Marvel Flip Book',
+                emoji: '❤️',
+                description: 'كتاب مارفل قابل للقلب مع تصاميم احترافية.',
+                features: ['صفحات قابلة للقلب', 'تصاميم احترافية', 'محتوى مارفل'],
+                technologies: ['CSS3', 'JavaScript', 'HTML5'],
+                file: 'LibroMarvel❤️.html'
+            },
+            apology: {
+                title: 'Apology Protocol',
+                emoji: '😔',
+                description: 'بروتوكول اعتذار تفاعلي مع رسائل شخصية.',
+                features: ['رسائل شخصية', 'تأثيرات عاطفية', 'واجهة تفاعلية'],
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                file: 'MePerdonas.html'
+            },
+            'gradual-apology': {
+                title: 'Gradual Apology Sequence',
+                emoji: '🐧',
+                description: 'سلسلة اعتذار تدريجية مع رسائل متسلسلة.',
+                features: ['رسائل متسلسلة', 'تأثيرات انتقالية', 'محتوى شخصي'],
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                file: '🐧🍃.html'
+            },
+            'message-chain': {
+                title: 'Sequential Message Chain',
+                emoji: '💬',
+                description: 'سلسلة رسائل متسلسلة مع تأثيرات انتقالية.',
+                features: ['رسائل متسلسلة', 'تأثيرات انتقالية', 'محتوى ديناميكي'],
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                file: 'MiEnojona.html'
+            },
+            roulette: {
+                title: 'Love Roulette Game',
+                emoji: '🎡',
+                description: 'لعبة روليت حب تفاعلية مع جوائز مثيرة.',
+                features: ['لعبة روليت', 'جوائز مثيرة', 'حركات ديناميكية'],
+                technologies: ['JavaScript', 'HTML5', 'CSS3'],
+                file: 'Ruleta🪅.html'
+            }
+        };
+
+        let currentProject = null;
+
+        // فتح النافذة المنبثقة
+        function openModal(projectId) {
+            const project = projects[projectId];
+            if (!project) return;
+
+            currentProject = project;
+
+            document.getElementById('modal-emoji').textContent = project.emoji;
+            document.getElementById('modal-title').textContent = project.title;
+
+            let html = `
+                <h3>الوصف</h3>
+                <p>${project.description}</p>
+                
+                <h3>الميزات الرئيسية</h3>
+                <ul>
+                    ${project.features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+                
+                <h3>التقنيات المستخدمة</h3>
+                <ul>
+                    ${project.technologies.map(t => `<li>${t}</li>`).join('')}
+                </ul>
+            `;
+
+            document.getElementById('modal-body').innerHTML = html;
+            document.getElementById('modal').classList.add('show');
+        }
+
+        // إغلاق النافذة المنبثقة
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+            currentProject = null;
+        }
+
+        // فتح الملف
+        function openFile() {
+            if (currentProject) {
+                window.open(currentProject.file, '_blank');
+            }
+        }
+
+        // تحميل الملف الحالي
+        function downloadCurrentFile() {
+            if (currentProject) {
+                downloadFile(currentProject.file);
+            }
+        }
+
+        // دالة تحميل الملف
+        function downloadFile(filename, event) {
+            if (event) {
+                event.stopPropagation();
+            }
             const link = document.createElement('a');
             link.href = filename;
             link.download = filename;
@@ -625,51 +907,34 @@
             document.body.removeChild(link);
         }
 
-        // وظيفة عرض الملف
-        function previewFile(filename) {
-            // تحويل اسم الملف إلى معرّف المشروع
-            const projectMap = {
-                'Galaxia😊😉.html': 'project-galaxia.html',
-                'Galaxy🥰.html': 'project-galaxy.html',
-                '❤️.html': 'project-heart.html',
-                'نبض❤️.html': 'project-pulse.html',
-                'تاريخ.html': 'project-countdown.html',
-                'مجالالموسيقي.html': 'project-music-sphere.html',
-                'مولدالمجره.html': 'project-galaxy-builder.html',
-                'PuzzleلغزAmor.html': 'project-puzzle.html',
-                'Flores🌼♥️.html': 'project-flowers.html',
-                'rose💐.html': 'project-rose-animation.html',
-                'rose🌼.html': 'project-sunflower.html',
-                '🎂🫵🏻_1.html': 'project-celebration.html',
-                'Libro📖.html': 'project-love-book.html',
-                'LibroMarvel❤️.html': 'project-marvel-book.html',
-                'MePerdonas.html': 'project-apology.html',
-                '🐧🍃.html': 'project-gradual-apology.html',
-                'MiEnojona.html': 'project-message-chain.html',
-                'Ruleta🪅.html': 'project-roulette.html'
-            };
-            const projectPage = projectMap[filename] || filename;
-            window.location.href = projectPage;
+        // دالة معاينة الملف (يتم استدعاؤها من البطاقة)
+        function previewFile(filename, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            window.open(filename, '_blank');
         }
 
-        // تأثير الحركة عند التمرير
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        // إغلاق النافذة المنبثقة عند الضغط خارجها
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
         };
 
+        // إضافة تأثيرات الحركة عند التمرير
+        const cards = document.querySelectorAll('.project-card');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.animation = 'fadeIn 0.6s ease-out forwards';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.file-card').forEach(card => {
-            observer.observe(card);
-        });
+        cards.forEach(card => observer.observe(card));
     </script>
 </body>
 </html>

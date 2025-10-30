@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Zero | Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #00ffc4;
+            --secondary-color: #0a0e27;
+            --text-light: #e0e0e0;
+            --text-dark: #0a0e27;
+            --accent-color: #ff006e;
+            --bg-dark: #000000;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0e27 50%, #001a2e 100%);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* خلفية متحركة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 196, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.1) 0%, transparent 50%);
+            animation: bgShift 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgShift {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* شبكة متحركة */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 196, 0.03) 25%, rgba(0, 255, 196, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 196, 0.03) 75%, rgba(0, 255, 196, 0.03) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 196, 0.03) 25%, rgba(0, 255, 196, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 196, 0.03) 75%, rgba(0, 255, 196, 0.03) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-box {
+            background: rgba(10, 14, 39, 0.9);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 50px 40px;
+            box-shadow: 0 0 50px rgba(0, 255, 196, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 196, 0.1) 0%, transparent 70%);
+            animation: glow 8s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                top: -50%;
+                left: -50%;
+            }
+            50% {
+                top: -30%;
+                left: -30%;
+            }
+        }
+
+        .login-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 25px;
+        }
+
+        .login-header h1 {
+            font-family: 'Consolas', monospace;
+            font-size: 2rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 20px var(--primary-color);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-family: 'Consolas', monospace;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.2s; }
+        .form-group:nth-child(2) { animation-delay: 0.4s; }
+        .form-group:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            background: rgba(0, 255, 196, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 196, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        input::placeholder {
+            color: rgba(224, 224, 224, 0.5);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            border: none;
+            border-radius: 8px;
+            color: var(--text-dark);
+            font-family: 'Consolas', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+            z-index: 1;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 196, 0.4);
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(0, 255, 196, 0.2);
+        }
+
+        .footer-links a {
+            display: inline-block;
+            margin: 0 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: 'Consolas', monospace;
+        }
+
+        .footer-links a:hover {
+            text-shadow: 0 0 10px var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 15;
+        }
+
+        .back-link:hover {
+            text-shadow: 0 0 10px var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        /* رسالة النجاح */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: rgba(0, 255, 196, 0.1);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            animation: popUp 0.5s ease-out;
+        }
+
+        @keyframes popUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .success-message h2 {
+            font-family: 'Consolas', monospace;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .success-message p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .success-message .btn {
+            padding: 12px 30px;
+            background: var(--primary-color);
+            border: none;
+            color: var(--text-dark);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Consolas', monospace;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .success-message .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        /* التجاوب */
+        @media (max-width: 600px) {
+            .login-box {
+                padding: 40px 25px;
+            }
+
+            .login-header h1 {
+                font-size: 1.5rem;
+            }
+
+            input {
+                padding: 12px;
+            }
+
+            .login-btn {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← العودة</a>
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-content">
+                <div class="login-header">
+                    <h1>🔐 DARK ZERO</h1>
+                    <p>SECURE ACCESS PORTAL</p>
+                </div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="username">اسم المستخدم / Username</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            placeholder="أدخل اسم المستخدم الخاص بك"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">كلمة المرور / Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="أدخل كلمة المرور الخاصة بك"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="remember-me">
+                            تذكرني
+                            <input type="checkbox" name="remember">
+                        </label>
+                    </div>
+
+                    <button type="submit" class="login-btn">تسجيل الدخول</button>
+                </form>
+
+                <div class="footer-links">
+                    <a href="#">هل نسيت كلمة المرور؟</a>
+                    <a href="#">إنشاء حساب جديد</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- رسالة النجاح -->
+    <div class="success-message" id="successMessage">
+        <h2>✅ مرحباً بك!</h2>
+        <p>تم تسجيل الدخول بنجاح</p>
+        <p id="username-display"></p>
+        <button class="btn" onclick="goToHome()">العودة إلى الرئيسية</button>
+    </div>
+
+    <script>
+        // معالجة تسجيل الدخول
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const remember = document.querySelector('input[name="remember"]').checked;
+
+            // التحقق البسيط (وهمي)
+            if (username.trim() === '' || password.trim() === '') {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+
+            // إذا كان اسم المستخدم وكلمة المرور أكثر من 3 أحرف
+            if (username.length >= 3 && password.length >= 3) {
+                // إظهار رسالة النجاح
+                document.getElementById('username-display').textContent = `مرحباً ${username}`;
+                document.getElementById('successMessage').style.display = 'block';
+
+                // حفظ البيانات في localStorage إذا تم اختيار "تذكرني"
+                if (remember) {
+                    localStorage.setItem('darkzero_user', username);
+                }
+
+                // إخفاء نموذج تسجيل الدخول
+                document.querySelector('.login-container').style.opacity = '0';
+                document.querySelector('.login-container').style.pointerEvents = 'none';
+            } else {
+                alert('اسم المستخدم وكلمة المرور يجب أن تكون أكثر من 3 أحرف');
+            }
+        }
+
+        // العودة إلى الرئيسية
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        // تحميل اسم المستخدم المحفوظ عند فتح الصفحة
+        window.addEventListener('load', () => {
+            const savedUser = localStorage.getItem('darkzero_user');
+            if (savedUser) {
+                document.getElementById('username').value = savedUser;
+                document.querySelector('input[name="remember"]').checked = true;
+            }
+        });
+
+        // إضافة تأثيرات لحقول الإدخال
+        const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.style.transform = 'scale(1.02)';
+            });
+
+            input.addEventListener('blur', () => {
+                input.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
+
